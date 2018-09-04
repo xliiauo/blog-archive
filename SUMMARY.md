@@ -1,5 +1,5 @@
 # Table of contents
 
-* [Tree Traversals](README.md)
+* [Welcome](README.md)
 * [Tree Traversals](tree-traversal.md)
 
