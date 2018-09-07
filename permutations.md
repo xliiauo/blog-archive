@@ -100,3 +100,25 @@ def permute_helper(results, list, nums, index)
 end
 ```
 
+### Combinations
+
+```ruby
+def combine(n, k)
+    results = []
+    list = []
+    combine_helper(results, list, n, 1, k)
+    results
+end
+
+def combine_helper(results, list, n, pos, k)
+    results << list.dup if list.length == k
+    
+    (pos..n).each do |i|
+        next if list.length == k
+        list << i
+        combine_helper(results, list, n, i + 1, k)
+        list.pop
+    end
+end
+```
+
