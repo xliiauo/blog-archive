@@ -8,6 +8,7 @@
   * `nums[mid] == < >`, `start = mid`, `end = mid` - 【指针变化】不会漏解
   * `nums[start]`, `nums[end]`, `target` - 【结果选取】由first, last, any灵活选取
 * 注意末尾结果选取，一旦第一个符合条件需立刻返回，避免结果改写
+* 画图转化难题
 
 ### Binary Search - any
 
@@ -32,7 +33,7 @@ def search(nums, target)
 end
 ```
 
-### Search for a Range
+### Search for a Range - first, last
 
 ```ruby
 def search_range(nums, target)
