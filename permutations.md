@@ -10,6 +10,22 @@
 
 ### Subsets
 
+```python
+def subsets(self, nums):
+    result = []
+    lst = []
+    self.subsets_helper(result, lst, nums, 0)
+    return result
+
+def subsets_helper(self, result, lst, nums, pos):
+    result.append(list(lst))
+
+    for i in range(pos, len(nums)):
+        lst.append(nums[i])
+        self.subsets_helper(result, lst, nums, i + 1)
+        lst.pop()
+```
+
 ```ruby
 def subsets(nums)
     results = []
@@ -30,6 +46,25 @@ end
 ```
 
 ### Subsets II
+
+```python
+def subsetsWithDup(self, nums):
+    result = []
+    lst = []
+    self.subsets_helper(result, lst, sorted(nums), 0)
+    return result
+
+def subsets_helper(self, result, lst, nums, pos):
+    result.append(list(lst))
+
+    for i in range(pos, len(nums)):
+        if pos != i and nums[i] == nums[i - 1]:
+            continue
+
+        lst.append(nums[i])
+        self.subsets_helper(result, lst, nums, i + 1)
+        lst.pop()
+```
 
 ```ruby
 def subsets_with_dup(nums)
