@@ -12,6 +12,32 @@
 
 ### Binary Search - any
 
+```python
+def search(self, nums, target):
+    if not nums:
+        return -1
+
+    first = 0
+    last = len(nums) - 1
+
+    while first + 1 < last:
+        mid = first + int((last - first)/2)
+
+        if nums[mid] == target:
+            return mid
+        elif nums[mid] < target:
+            first = mid
+        else:
+            last = mid
+
+    if nums[first] == target:
+        return first
+    elif nums[last] == target:
+        return last
+    else:
+        return -1
+```
+
 ```ruby
 def search(nums, target)
     return -1 if nums.empty?
