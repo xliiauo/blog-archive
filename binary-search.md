@@ -105,6 +105,26 @@ end
 ### Search Insert Position
 
 思路：找第一个大于等于。
+```python
+class Solution(object):
+    def searchInsert(self, nums, target):
+        if not nums: return -1
+
+        first = 0 
+        last = len(nums) - 1
+        
+        while first + 1 < last:
+            mid = first + int((last - first)/2)
+            if nums[mid] >= target:
+                last = mid
+            else:
+                first = mid
+
+        if nums[first] >= target: return first
+        if nums[last] >= target: return last
+        
+        return len(nums)
+```
 
 ```ruby
 def search_insert(nums, target)
@@ -125,27 +145,6 @@ def search_insert(nums, target)
     
     return last + 1
 end
-```
-
-```python
-class Solution(object):
-    def searchInsert(self, nums, target):
-        if not nums: return -1
-
-        first = 0 
-        last = len(nums) - 1
-        
-        while first + 1 < last:
-            mid = first + int((last - first)/2)
-            if nums[mid] >= target:
-                last = mid
-            else:
-                first = mid
-
-        if nums[first] >= target: return first
-        if nums[last] >= target: return last
-        
-        return len(nums)
 ```
 
 ### Search a 2D Matrix
