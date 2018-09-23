@@ -127,6 +127,27 @@ def search_insert(nums, target)
 end
 ```
 
+```python
+class Solution(object):
+    def searchInsert(self, nums, target):
+        if not nums: return -1
+
+        first = 0 
+        last = len(nums) - 1
+        
+        while first + 1 < last:
+            mid = first + int((last - first)/2)
+            if nums[mid] >= target:
+                last = mid
+            else:
+                first = mid
+
+        if nums[first] >= target: return first
+        if nums[last] >= target: return last
+        
+        return len(nums)
+```
+
 ### Search a 2D Matrix
 
 思路：列 - 最后一个小于等于，行 - 任意
