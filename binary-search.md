@@ -199,6 +199,24 @@ end
 
 思路：递增矩阵，固定打法
 
+```python
+class Solution(object):
+    def searchMatrix(self, matrix, target):
+        if not matrix or not matrix[0]: return False
+        
+        m = len(matrix) - 1
+        n = 0
+        
+        while m >= 0 and n <= len(matrix[0]) - 1:
+            if matrix[m][n] == target: return True
+            if matrix[m][n] < target:
+                n += 1
+            else:
+                m -= 1
+                
+        return False
+```
+
 ```ruby
 def search_matrix(matrix, target)
   return false if matrix.empty? || matrix.first.empty? ||target.nil?
