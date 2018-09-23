@@ -41,20 +41,20 @@ def search(self, nums, target):
 ```ruby
 def search(nums, target)
     return -1 if nums.empty?
-    
+
     first = 0
     last = nums.length - 1
-    
+
     while first + 1 < last
         mid = first + (last - first)/2
         return mid if nums[mid] == target
         first = mid if nums[mid] < target
         last = mid if nums[mid] > target
     end
-    
+
     return first if nums[first] == target
     return last if nums[last] == target
-    
+
     return -1
 end
 ```
@@ -64,17 +64,17 @@ end
 ```ruby
 def search_range(nums, target)
     return [-1, -1] if nums.length == 0
-    
+
     first = 0
     last = nums.length - 1
     result = [-1, -1]
-    
+
     while first + 1 < last
         mid = first + (last - first)/2
         first = mid if nums[mid] < target
         last = mid if nums[mid] >= target
     end
-    
+
     if nums[first] == target
         result[0] = first 
     elsif nums[last] == target
@@ -82,22 +82,22 @@ def search_range(nums, target)
     else
         return [-1, -1]
     end
-        
+
     first = 0
     last = nums.length - 1
-        
+
     while first + 1 < last
         mid = first + (last - first)/2
         first = mid if nums[mid] <= target
         last = mid if nums[mid] > target
     end
-        
+
     if nums[last] == target
         result[1] = last 
     elsif nums[first] == target
         result[1] = first 
     end
-        
+
     return result
 end
 ```
@@ -105,6 +105,7 @@ end
 ### Search Insert Position
 
 思路：找第一个大于等于。
+
 ```python
 class Solution(object):
     def searchInsert(self, nums, target):
@@ -112,7 +113,7 @@ class Solution(object):
 
         first = 0 
         last = len(nums) - 1
-        
+
         while first + 1 < last:
             mid = first + int((last - first)/2)
             if nums[mid] >= target:
@@ -122,27 +123,27 @@ class Solution(object):
 
         if nums[first] >= target: return first
         if nums[last] >= target: return last
-        
+
         return len(nums)
 ```
 
 ```ruby
 def search_insert(nums, target)
     return -1 if nums.empty?
-    
+
     first = 0
     last = nums.length - 1
-    
+
     while first + 1 < last
         mid = first + (last - first)/2    
         return mid if nums[mid] == target
         last = mid if nums[mid] > target
         first = mid if nums[mid] < target
     end
-    
+
     return first if nums[first] >= target
     return last if nums[last] >= target
-    
+
     return last + 1
 end
 ```
@@ -155,17 +156,17 @@ end
 def search_matrix(matrix, target)
     return false if matrix.empty? || matrix.first.empty?
     return false if target.nil?
-    
+
     first = 0
     last = matrix.size - 1
-    
+
     while first + 1 < last
         mid = first + (last - first)/2
         return true if matrix[mid].first == target
         first = mid if matrix[mid].first < target
         last = mid if matrix[mid].first > target
     end
-    
+
     if matrix[last].first == target || matrix[first].first == target
         return true
     elsif matrix[last].first < target
@@ -175,21 +176,21 @@ def search_matrix(matrix, target)
     else
         return false
     end
-    
+
     nums = matrix[m]
     first = 0
     last = nums.size - 1
-    
+
     while first + 1 < last
         mid = first + (last - first)/2
         return true if nums[mid] == target
         first = mid if nums[mid] < target
         last = mid if nums[mid] > target
     end
-    
+
     return true if nums[first] == target
     return true if nums[last] == target
-    
+
     return false
 end
 ```
@@ -202,17 +203,17 @@ end
 class Solution(object):
     def searchMatrix(self, matrix, target):
         if not matrix or not matrix[0]: return False
-        
+
         m = len(matrix) - 1
         n = 0
-        
+
         while m >= 0 and n <= len(matrix[0]) - 1:
             if matrix[m][n] == target: return True
             if matrix[m][n] < target:
                 n += 1
             else:
                 m -= 1
-                
+
         return False
 ```
 
@@ -240,11 +241,28 @@ end
 
 思路：first bad version 和 last good version + 1 一样，谁简单选谁
 
+```python
+class Solution(object):
+    def firstBadVersion(self, n):
+        first = 1
+        last = n
+        
+        while first + 1 < last:
+            mid = first + int((last - first)/2)
+            if isBadVersion(mid) is True:
+                last = mid
+            else:
+                first = mid
+                
+        if isBadVersion(first): return first
+        if isBadVersion(last): return last
+```
+
 ```ruby
 def first_bad_version(n)
     first = 1
     last = n
-    
+
     while first + 1 < last
         mid = first + (last - first)/2
         if is_bad_version(mid)
@@ -253,7 +271,7 @@ def first_bad_version(n)
             first = mid
         end
     end
-    
+
     return first if is_bad_version(first)
     return last if is_bad_version(last)
 end
@@ -268,11 +286,11 @@ def search(nums, target)
     return -1 if nums.empty? || target.nil?
     first = 0
     last = nums.length - 1
-    
+
     while first + 1 < last
         mid = first + (last - first)/2
         return mid if nums[mid] == target
-         
+
         if nums.first < nums[mid]
             if nums.first <= target && target <= nums[mid]
                 last = mid
@@ -287,13 +305,11 @@ def search(nums, target)
             end
         end
     end
-    
-    
+
+
     return first if nums[first] == target
     return last if nums[last] == target
     return -1
 end
 ```
-
-
 
