@@ -9,6 +9,7 @@
   * `nums[start]`, `nums[end]`, `target` - 【结果选取】由first, last, any灵活选取
 * 注意末尾结果选取，一旦第一个符合条件需立刻返回，避免结果改写
 * 画图转化难题
+* Rotated的问题，判断红线绿线是关键
 
 ### Binary Search - any
 
@@ -277,9 +278,65 @@ def first_bad_version(n)
 end
 ```
 
+### Find Peak Element {#find-peak-element}
+
+思路：上坡，下坡，谁大返回谁。
+
+```ruby
+def find_peak_element(nums)
+    return -1 if nums.empty?
+    return (nums.first >= nums.last ? 0 : 1) if nums.length < 3
+    
+    first = 0
+    last = nums.length - 1
+    
+    while first + 1 < last
+        mid = first + (last - first)/2
+        if nums[mid] < nums[mid - 1]
+            last = mid
+        elsif nums[mid] < nums[mid + 1]
+            first = mid
+        else
+            return mid
+        end
+    end
+    
+    return first if nums[first] > nums[last]
+    return last if nums[last] > nums[first]
+end
+```
+
 ### Search in Rotated Sorted Array
 
 思路：画图，将计就计，迎刃而解
+
+```python
+class Solution:
+    def search(self, nums, target):
+        if not nums: return -1
+        
+        first = 0
+        last = len(nums) - 1
+        
+        while first + 1 < last:
+            mid = first + int((last - first)/2)
+            if nums[mid] == target: return mid
+            if nums[0] < nums[mid]:
+                if nums[0] <= target and target <= nums[mid]:
+                    last = mid
+                else:
+                    first = mid
+            else:
+                if nums[mid] <= target and target <= nums[-1]:
+                    first = mid
+                else:
+                    last = mid
+                    
+
+        if nums[first] == target: return first
+        if nums[last] == target: return last
+        return -1
+```
 
 ```ruby
 def search(nums, target)
@@ -312,4 +369,51 @@ def search(nums, target)
     return -1
 end
 ```
+
+### Find Minimum in Rotated Sorted Array {#find-minimum-in-rotated-sorted-array}
+
+思路：画图，可能是纯递增，可能是正常 - 演变成找断点。
+
+思路2：找第一个小于末项的数。
+
+```python
+class Solution:
+    def findMin(self, nums):
+        if not nums: return -1
+        if nums[0] < nums[-1]: return nums[0]
+        
+        first = 0
+        last = len(nums) - 1
+        
+        while first + 1 < last:
+            mid = first + int((last - first)/2)
+            if nums[mid] < nums[0]:
+                last = mid
+            else:
+                first = mid
+
+        return min(nums[first], nums[last])
+```
+
+```ruby
+def find_min(nums)
+    return nums.first if nums.first < nums.last
+    first = 0
+    last = nums.length - 1
+    
+    while first + 1 < last
+        mid = first + (last - first)/2
+        if nums.first <= nums[mid]
+            first = mid
+        else
+            last = mid
+        end
+    end
+    
+    return nums[first] if nums[first] <= nums[last]
+    return nums[last] if nums[last] < nums[first]
+end
+```
+
+
 
