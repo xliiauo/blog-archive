@@ -15,6 +15,7 @@
 * **分治模版**：
   * 通用 - 所有二叉树问题都可以分治疗
   * 也是递归 - 自身有return
+  * **递归函数，退出条件，分开，合并，返回**
 
 ### Binary Tree Traversal
 
@@ -56,7 +57,9 @@ class Solution:
         return result  
 ```
 
-**中序 - 待背**
+**中序**
+
+思路：基本靠背，非常有意思的解法
 
 ```python
 class Solution:
@@ -95,6 +98,51 @@ class Solution:
         
         return result
 ```
+
+### Binary Search Tree Iterator
+
+思路：Non-recursive Inorder Traversal改写
+
+```python
+class BSTIterator:
+    def __init__(self, root):
+        self.stack = []
+        self.node = root
+
+    def hasNext(self):
+        return True if self.node or self.stack else False
+
+    def next(self):
+        while self.node:
+            self.stack.append(self.node)
+            self.node = self.node.left
+
+        node = self.stack.pop()
+        self.node = node.right
+        
+        return node
+```
+
+### Maximum Depth of Binary Tree
+
+```python
+class Solution:
+    def maxDepth(self, root):
+        depth = 0
+        if not root:
+            return depth
+        else:
+            depth += 1
+            
+        left = self.maxDepth(root.left)
+        right = self.maxDepth(root.right)
+        
+        depth += max(left, right)
+        
+        return depth
+```
+
+
 
 ## DFS模版
 
