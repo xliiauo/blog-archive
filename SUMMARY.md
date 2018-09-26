@@ -4,6 +4,7 @@
 * [Subsets & Permutations](permutations.md)
 * [Binary Search](binary-search.md)
 * [Binary Tree](binary-tree.md)
+* [Dynamic Programming](dynamic-programming.md)
 
 ## Fundations
 
