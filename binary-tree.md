@@ -15,7 +15,11 @@
 * **分治模版**：
   * 通用 - 所有二叉树问题都可以分治疗
   * 也是递归 - 自身有return
-  * **递归函数，退出条件，分开，合并，返回**
+  * **递归函数** - 一句话说清楚函数作用
+  * **退出条件** - 点为空，条件提前达成
+  * **分开** - 分开处理
+  * **合并** - 合并处理结果
+  * **返回** - 返回值，可与合并同框
 
 ### Binary Tree Traversal
 
@@ -142,9 +146,222 @@ class Solution:
         return depth
 ```
 
+### Balanced Binary Tree
 
+```text
+class Solution:
+    def isBalanced(self, root):
+        balanced, _ = self.validate(root)
+        return balanced
+
+
+    def validate(self, node):
+        if not node:
+            return True, 0
+            
+        balanced, leftHeight = self.validate(node.left)
+        if not balanced:
+            return False, 0
+        balanced, rightHeight = self.validate(node.right)
+        if not balanced:
+            return False, 0
+            
+        return abs(leftHeight - rightHeight) <= 1, max(leftHeight, rightHeight) + 1
+```
+
+### Binary Tree Maximum Path Sum
+
+```python
+import math
+
+class Solution:
+    """
+    @param root: The root of binary tree.
+    @return: An integer
+    """
+    def maxPathSum(self, root):
+        _, maxPath = self.helper(root)
+        return maxPath
+        
+    def helper(self, root):
+        if not root:
+            return 0, -math.inf
+            
+        # Divide
+        leftSinglePath, leftMaxPath = self.helper(root.left)
+        rightSinglePath, rightMaxPath = self.helper(root.right)
+        
+        # Conquer
+        singlePath = max(leftSinglePath, rightSinglePath) + root.val
+        singlePath = max(singlePath, 0)
+        
+        maxPath = max(leftMaxPath, rightMaxPath)
+        maxPath = max(maxPath, leftSinglePath + rightSinglePath + root.val)
+        
+        return singlePath, maxPath
+```
+
+### Lowest Common Acestor
+
+```text
+class Solution:
+    def lowestCommonAncestor(self, root, A, B):
+        if not root or root == A or root == B:
+            return root
+            
+        # Divide
+        left = self.lowestCommonAncestor(root.left, A, B)
+        right = self.lowestCommonAncestor(root.right, A, B)
+        
+        # Conquer
+        if left and right:
+            return root
+            
+        if left:
+            return left
+            
+        if right:
+            return right
+            
+        return None
+```
 
 ## DFS模版
 
+```text
+# Traverse
+class Solution:
+    def traverse(self, root):
+        if not root:
+            return
+        # Do somehting with root
+        self.traverse(root.left)
+        # Do somehting with root
+        self.traverse(root.right)
+        # Do somehting with root
+        
+    
+# Divide and Conquer
+class Solution:
+    def traverse(self, root):
+        if not root:
+            # Do something and return
+            
+        # Divide
+        left = self.traverse(root.left)
+        right = self.traverse(root.right)
+        
+        # Conquer
+        result = merge result from left and right
+        return result
+```
+
 ## BFS模版
+
+```text
+class Solution:
+    def bfs(self, root):
+        rst = []
+        if not root:
+            return rst
+            
+        queue = [root]
+        while queue:
+            level = []
+            for _ in range(len(queue)):
+                node = queue.pop(0)
+                level.append(node)
+                
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+                    
+            rst.append(level)
+            
+        return result
+```
+
+### Binary Tree Level Order Traversal
+
+```text
+class Solution:
+    def levelOrder(self, root):
+        # write your code here
+        if not root: return []
+        queue = [root]
+        rst = []
+        
+        while queue:
+            level = []
+            for _ in range(len(queue)):
+                node = queue.pop(0)
+                level.append(node.val)
+            
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+                    
+            rst.append(level)
+            
+        return rst
+```
+
+### Binary Tree Zigzag Level Order Traversal
+
+```text
+class Solution:
+    def zigzagLevelOrder(self, root):
+        if not root: return []
+        queue = [root]
+        rst = []
+        count = 0
+        
+        while queue:
+            level = []
+            
+            for _ in range(len(queue)):
+                node = queue.pop(0)
+                level.append(node.val)
+                
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+                    
+            count += 1
+            if count % 2 == 0:
+                level.reverse()
+            rst.append(level)
+            
+        return rst
+```
+
+### Validate Binary Search Tree
+
+```text
+import math
+
+class Solution:
+    """
+    @param root: The root of binary tree.
+    @return: True if the binary tree is BST, or false
+    """
+    def isValidBST(self, root):
+        # write your code here
+        if not root:
+            return True
+        
+        return self.validate(root, -math.inf, math.inf)
+        
+    def validate(self, node, minimum, maximum):
+        if not node:
+            return True
+            
+        if node.val <= minimum or node.val >= maximum:
+            return False
+            
+        return self.validate(node.left, minimum, min(maximum, node.val)) and self.validate(node.right, max(minimum, node.val), maximum)
+```
 
