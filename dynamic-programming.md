@@ -41,7 +41,7 @@ class Solution:
         return min(self.dfs(x + 1, y), self.dfs(x + 1, y + 1)) + self.triangle[x][y]
 ```
 
-DP
+DP - 记忆化搜索
 
 脑子存在就返回脑子，不存在就记录进脑子
 
@@ -65,4 +65,8 @@ class Solution:
         self.dic[(x, y)] = min(self.dfs(x + 1, y), self.dfs(x + 1, y + 1)) + self.triangle[x][y]
         return self.dic[(x, y)]
 ```
+
+DP - 两重循环
+
+
 
