@@ -278,7 +278,7 @@ def first_bad_version(n)
 end
 ```
 
-### Find Peak Element {#find-peak-element}
+### Find Peak Element <a id="find-peak-element"></a>
 
 思路：上坡，下坡，谁大返回谁。
 
@@ -370,7 +370,7 @@ def search(nums, target)
 end
 ```
 
-### Find Minimum in Rotated Sorted Array {#find-minimum-in-rotated-sorted-array}
+### Find Minimum in Rotated Sorted Array <a id="find-minimum-in-rotated-sorted-array"></a>
 
 思路：画图，可能是纯递增，可能是正常 - 演变成找断点。
 

@@ -16,3 +16,5 @@
 * [BFS & DFS](fundations/bfs-and-dfs.md)
 * [Two Sum](fundations/two-sum.md)
 
+## Python Tips @work
+

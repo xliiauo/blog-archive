@@ -1,8 +1,30 @@
 # Dynamic Programming
 
-Triangle
+## **动态规划模版**
 
-DFS - O\(2^n\), unlike binary tree's O\(n\)
+* 状态定义 State - 自然语言描述数组的定义
+* 初始化 Initialisation - 起点，最小状态
+* 方程 Function - 根据定义写出方程，状态之间的关系，小状态找到大状态 \(离起点越近，状态越小\)
+* 答案 Answer - 终点，最大状态
+
+**何时使用DP?**
+
+* 问：max/min\(最大最小值\)， yes/no \(路径\)， count \(多少种走法\)
+* Can't sort/swap, 例如给集合不是list极有可能不是动态规划
+
+#### 类别
+
+* 矩阵
+  * state - f\[x\]\[y\] - 从起点走到x, y
+  * function - 走到x,y前一步
+  * initial - 起点
+  * answer - 终点
+* 
+
+
+### Triangle
+
+#### DFS - O\(2^n\), unlike binary tree's O\(n\)
 
 ```python
 import math
@@ -23,7 +45,7 @@ class Solution:
         self.dfs(x + 1, y + 1, s + self.triangle[x][y])
 ```
 
-Divide & Conquer
+#### Divide & Conquer
 
 ```python
 import math
@@ -41,9 +63,9 @@ class Solution:
         return min(self.dfs(x + 1, y), self.dfs(x + 1, y + 1)) + self.triangle[x][y]
 ```
 
-DP - 记忆化搜索
+#### Divide & Conquer + 记忆化搜索
 
-脑子存在就返回脑子，不存在就记录进脑子
+思路：脑子存在就返回脑子，不存在就记录进脑子
 
 ```python
 import math
@@ -66,7 +88,36 @@ class Solution:
         return self.dic[(x, y)]
 ```
 
-DP - 两重循环
+#### DP - 两重循环
+
+自底向上/自顶向下
+
+注意：`if [variable]` 可能并不能判断是否存在，因为`0`是`False`
+
+```python
+class Solution:
+    def minimumTotal(self, triangle):
+      f = {}
+      f[(0, 0)] = triangle[0][0]
+    
+      for i in range(1, len(triangle)):
+    
+        for j in range(0, i + 1):
+          f[(i, j)] = math.inf
+          if f.get((i - 1, j)) is not None:
+            f[(i, j)] = min(f[(i, j)], f[(i - 1, j)])
+          if f.get((i - 1, j - 1)) is not None:
+            f[(i, j)] = min(f[(i, j)], f[(i - 1, j - 1)])
+          f[(i, j)] += triangle[i][j]
+    
+      crr = math.inf
+      for i in range(0, len(triangle)):
+        if f[(len(triangle) - 1, i)] < crr:
+            crr = f[(len(triangle) - 1, i)]
+      return crr
+```
+
+Minimum Path Sum
 
 
 
