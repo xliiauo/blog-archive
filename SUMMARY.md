@@ -18,3 +18,5 @@
 
 ## Python Tips @work
 
+## Project Euler
+
